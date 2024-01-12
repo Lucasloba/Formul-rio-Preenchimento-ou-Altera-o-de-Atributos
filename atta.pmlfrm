@@ -1,0 +1,108 @@
+----------------------------------------------------------------------------------------
+--   Arquivo: atta.pmlfrm
+--   Empresa: PROJECTUS - PRJN
+--     Autor: Lucas Alves Matos e Jackson Machado
+--    Criado: 10 de janeiro de 2024
+--  Descrção: Definição e/ou alteração dos atributos :REFCOMENT1,:REFCOMENT2,:REFCOMENT3,:REFTIPO1SUP,:REFTIPO2SUP,:REFTIPO3SUP,:REFTIPO4SUP,:REFTIPO5SUP,Stext. É necessário estar posicionado em um ATTA      
+----------------------------------------------------------------------------------------
+setup form !!atta
+    !!atta.initcall = '!this.init()'
+    title 'Alteração e/ou Preenchimento de atributos ATTA' 
+	frame .atributos at 0 0 'ATRIBUTOS'
+		frame .refcoment1 at 0 0 ':REFCOMENT1'
+			text .coment1Atrb '' call '' width 120 is string
+		exit
+	         path down 
+		frame .refcoment2 ':REFCOMENT2'
+			text .coment2Atrb '' call '' width 120 is string
+		exit
+		 path down
+		frame .refcoment3 ':REFCOMENT3'
+			text .coment3Atrb '' call '' width 120 is string
+		exit
+		 path down
+		frame .reftipo1sup ':REFTIPO1SUP'
+			text .comentTipo1Atrb '' call '' width 120 is string
+		exit
+		 path down
+		frame .reftipo2sup ':REFTIPO2SUP'
+			text .comentTipo2Atrb '' call '' width 120 is string
+		exit
+		 path down
+		frame .reftipo3sup ':REFTIPO3SUP'
+			text .comentTipo3Atrb '' call '' width 120 is string
+		exit
+		 path down
+		frame .reftipo4sup ':REFTIPO4SUP'
+			text .comentTipo4Atrb '' call '' width 120 is string
+		exit
+		 path down
+		frame .reftipo5sup ':REFTIPO5SUP'
+			text .comentTipo5Atrb '' call '' width 120 is string
+		exit
+		 path down
+		frame .stext 'Stext'
+			text .comentStext '' call '' width 120 is string
+		exit
+	exit
+	button .b1 'Apply' at xmax form-size ymax callback '!this.salvar()'  
+exit 
+
+define method .init()
+	handle(2,111)
+		return error 1 'Você deve estar posicionado em um nível ATTA'
+	endhandle
+	if($!!ce.type eq ATTA)then
+		   !recebedorREFCOMENT1 = !!ce.:REFCOMENT1
+		   !this.coment1Atrb.val = !recebedorREFCOMENT1
+		   --
+		   !recebedorREFCOMENT2 = !!ce.:REFCOMENT2
+		   !this.coment2Atrb.val = !recebedorREFCOMENT2
+		   --
+		   !recebedorREFCOMENT3 = !!ce.:REFCOMENT3
+		   !this.coment3Atrb.val = !recebedorREFCOMENT3
+		   --
+		   !recebedorREFTIPO1SUP = !!ce.:REFTIPO1SUP
+		   !this.comentTipo1Atrb.val = !recebedorREFTIPO1SUP
+		   --
+		   !recebedorREFTIPO2SUP = !!ce.:REFTIPO2SUP
+		   !this.comentTipo2Atrb.val = !recebedorREFTIPO2SUP
+		   --
+		   !recebedorREFTIPO3SUP = !!ce.:REFTIPO3SUP
+		   !this.comentTipo3Atrb.val = !recebedorREFTIPO3SUP 
+		   --
+		   !recebedorREFTIPO4SUP = !!ce.:REFTIPO4SUP
+		   !this.comentTipo4Atrb.val = !recebedorREFTIPO4SUP
+		   --
+		   !recebedorREFTIPO5SUP = !!ce.:REFTIPO5SUP
+		   !this.comentTipo5Atrb.val =  !recebedorREFTIPO5SUP
+		   --
+		   !recebedorStext = !!ce.Stext
+		   !this.comentStext.val = !recebedorStext
+	endIf
+endMethod
+
+define method .salvar()
+	ATTA
+	!salvaREFCOMENT1 = !this.coment1Atrb.val
+	!salvaREFCOMENT2 = !this.coment2Atrb.val
+	!salvaREFCOMENT3 = !this.coment3Atrb.val
+	!salvaREFTIPO1SUP = !this.comentTipo1Atrb.val
+	!salvaREFTIPO2SUP = !this.comentTipo2Atrb.val
+	!salvaREFTIPO3SUP = !this.comentTipo3Atrb.val
+	!salvaREFTIPO4SUP = !this.comentTipo4Atrb.val
+	!salvaREFTIPO5SUP = !this.comentTipo5Atrb.val
+	!salvaStext = !this.comentStext.val
+	
+	:REFCOMENT1 '$!salvaREFCOMENT1'
+	:REFCOMENT2 '$!salvaREFCOMENT2'
+	:REFCOMENT3 '$!salvaREFCOMENT3'
+	:REFTIPO1SUP '$!salvaREFTIPO1SUP'
+	:REFTIPO2SUP '$!salvaREFTIPO2SUP'
+	:REFTIPO3SUP '$!salvaREFTIPO3SUP'
+	:REFTIPO4SUP '$!salvaREFTIPO4SUP'
+	:REFTIPO5SUP '$!salvaREFTIPO5SUP'
+	Stext '$!salvaStext'
+endMethod
+
+
