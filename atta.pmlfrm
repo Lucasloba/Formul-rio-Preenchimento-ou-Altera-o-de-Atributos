@@ -1,14 +1,25 @@
-----------------------------------------------------------------------------------------
---   Arquivo: atta.pmlfrm
---   Empresa: PROJECTUS - PRJN
---     Autor: Lucas Alves Matos e Jackson Machado
---    Criado: 10 de janeiro de 2024
---  Descrção: Definição e/ou alteração dos atributos :REFCOMENT1,:REFCOMENT2,:REFCOMENT3,:REFTIPO1SUP,:REFTIPO2SUP,:REFTIPO3SUP,:REFTIPO4SUP,:REFTIPO5SUP,Stext. É necessário estar posicionado em um ATTA      
-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--            Arquivo: atta.pmlfrm
+--            Empresa: PROJECTUS - PRJN
+--              Autor: Lucas Alves Matos e Jackson Machado
+--             Criado: 10 de janeiro de 2024
+--           Descrção: Definição e/ou alteração dos atributos :REFCOMENT1,:REFCOMENT2,:REFCOMENT3,:REFTIPO1SUP,:REFTIPO2SUP,:REFTIPO3SUP,:REFTIPO4SUP,:REFTIPO5SUP,Stext. É necessário estar posicionado em um ATTA  
+-- Cópia de Atributos: Abra o form. Selecione com o cursor do mouse a ATTA a qual você deseja copiar o valor dos atributos. Clique em "Copiar". Clique em "Apply" para salvar. (Pronto! processo finalizado)    
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 setup form !!atta
     !!atta.initcall = '!this.init()'
     title 'Alteração e/ou Preenchimento de atributos ATTA' 
-	frame .atributos at 0 0 'ATRIBUTOS'
+        frame .currentelement 'Elemento/ATTA Atual' at 0 0 '' 
+        	button .bCE 'CE' at xmin ymin callback '!this.init()'
+        	path right
+        	paragraph .elementoCorrente text '!this.elementoCorrente.val' 
+        exit
+        path down
+        frame .CopiarColar
+        	button .bCopy 'Copiar' at xmin ymin callback '!this.CopyPaste()'
+        exit
+        path down
+	frame .atributos 'ATRIBUTOS'
 		frame .refcoment1 at 0 0 ':REFCOMENT1'
 			text .coment1Atrb '' call '' width 120 is string
 		exit
@@ -79,7 +90,41 @@ define method .init()
 		   --
 		   !recebedorStext = !!ce.Stext
 		   !this.comentStext.val = !recebedorStext
+		   --
+		   -- botão CE e nome da ATTA Corrente
+		   !!ce
+		   !recebeNome = !!ce.name
+        	   !this.elementoCorrente.val = !recebeNome
 	endIf
+endMethod
+
+define method .CopyPaste()
+	!copyRefComent1 = !!ce.:REFCOMENT1
+	!this.coment1Atrb.val = !copyRefComent1
+	--
+	!copyRefComent2 = !!ce.:REFCOMENT2
+	!this.coment2Atrb.val = !copyRefComent2
+	--
+	!copyRefComent3 = !!ce.:REFCOMENT3
+	!this.coment3Atrb.val = !copyRefComent3
+	-- 
+	!copyRefTipoSup1 = !!ce.:REFTIPO1SUP
+	!this.comentTipo1Atrb.val = !copyRefTipoSup1
+	--
+	!copyRefTipoSup2 = !!ce.:REFTIPO2SUP
+	!this.comentTipo2Atrb.val = !copyRefTipoSup2
+	-- 
+	!copyRefTipoSup3 = !!ce.:REFTIPO3SUP
+	!this.comentTipo3Atrb.val = !copyRefTipoSup3
+	--
+	!copyRefTipoSup4 = !!ce.:REFTIPO4SUP
+	!this.comentTipo4Atrb.val = !copyRefTipoSup4
+	--
+	!copyRefTipoSup5 = !!ce.:REFTIPO5SUP
+	!this.comentTipo5Atrb.val = !copyRefTipoSup5
+	--
+	!copyStext = !!ce.Stext
+	!this.comentStext.val = !copyStext
 endMethod
 
 define method .salvar()
